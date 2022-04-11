@@ -328,6 +328,7 @@ class ReactVlcPlayerView extends TextureView implements
             ReadableArray initOptions = srcMap.hasKey("initOptions") ? srcMap.getArray("initOptions") : null;
             Integer hwDecoderEnabled = srcMap.hasKey("hwDecoderEnabled") ? srcMap.getInt("hwDecoderEnabled") : null;
             Integer hwDecoderForced = srcMap.hasKey("hwDecoderForced") ? srcMap.getInt("hwDecoderForced") : null;
+            ReadableArray subtitles = srcMap.hasKey("subtitles") ? srcMap.getArray("subtitles") : null;
 
             if (initOptions != null) {
                 ArrayList options = initOptions.toArrayList();
@@ -382,6 +383,17 @@ class ReactVlcPlayerView extends TextureView implements
                     m.addOption(option);
                 }
             }
+                
+           if (subtitles != null) {
+                ArrayList options = subtitles.toArrayList();
+                for (int i = 0; i < options.size() - 1; i++) {
+                   String option = (String) options.get(i);
+                   mMediaPlayer.add_slave(mMediaPlayer,option, True)
+                }
+            }
+            
+            
+
             mMediaPlayer.setMedia(m);
             mMediaPlayer.setScale(0);
 
